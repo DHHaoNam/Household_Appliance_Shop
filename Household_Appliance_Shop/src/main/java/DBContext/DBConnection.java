@@ -4,6 +4,8 @@
  */
 package DBContext;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Nam
