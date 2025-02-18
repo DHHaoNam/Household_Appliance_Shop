@@ -9,5 +9,5 @@ package DBContext;
  * @author Nam
  */
 public class DBConnection {
-    
+    Connection conn;
 }
