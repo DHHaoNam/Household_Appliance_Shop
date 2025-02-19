@@ -10,6 +10,6 @@ package DBContext;
  */
 public class ProductsDAO {
     public void addProduct() {
-    
+        System.out.println("aaaaaa");
     }
 }
