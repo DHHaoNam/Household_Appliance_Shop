@@ -9,5 +9,5 @@ package DAO;
  * @author HP
  */
 public class d {
-    
+    int e;
 }
