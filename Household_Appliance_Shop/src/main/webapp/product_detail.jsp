@@ -131,7 +131,7 @@
                 margin: 0;
                 font-size: 14px;
             }
-            
+
         </style>
     </head>
 
@@ -143,27 +143,39 @@
                 <div class="row">
                     <!-- Food Image -->
                     <div class="col-md-6">
-                        <img src="${details.imageUrl}" alt="Tên món ăn" class="food-img">
+                        <img src="${details.image}" alt="Tên món ăn" class="food-img">
                 </div>
 
                 <!-- Food Details -->
                 <div class="col-md-6 margin-left">
-                    <h2 class="food-name">${details.name}</h2>
+                    <h2 class="food-name">${details.productName}</h2>
                     <p class="food-price">${details.price} VND</p>
 
                     <!-- Quantity and Add to Cart -->
-                    <form action="ProductDetailController" method="post"> <!-- Đổi action thành 'cart' để gửi đến CartController -->
+                    <form action="add-cart" method="get"> <!-- Đổi action thành 'cart' để gửi đến CartController -->
                         <div class="form-group">
                             <label for="quantity">Số Lượng:</label>
-                            <input type="number" id="quantity" name="quantity" class="form-control quantity" min="1" value="1">
+                            <input type="number" id="stock_Quantity" name="stock_Quantity" class="form-control quantity" min="1" value="1">
                         </div>
+                        <div class="form-group">
+                            <label for="description">Mô Tả</label>
+                            <textarea id="description" name="description" class="form-control" rows="2" readonly>${details.description}</textarea>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label for="Brand">Brand</label>
+                             <input type="text" id="brandID" name="brand" class="form-control" value="${brand.brandName}" readonly>
+                        </div>
+                       
 
-                        <input type="hidden" name="productId" value="${details.id}"> <!-- ID của món ăn -->
-                        <c:if test="${details.quantity > 0}">
+
+                        <input type="hidden" name="productId" value="${details.productID}"> <!-- ID của món ăn -->
+                        <c:if test="${details.stock_Quantity > 0}">
                             <p>Tình trạng: Còn hàng</p>
                             <button type="submit" class="btn btn-cart mt-3 text-white">Thêm Vào Giỏ Hàng</button>
                         </c:if>
-                        <c:if test="${details.quantity <= 0}">
+                        <c:if test="${details.stock_Quantity <= 0}">
                             <p>Tình trạng: Hết hàng</p>
                         </c:if>
 

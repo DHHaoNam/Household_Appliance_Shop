@@ -80,7 +80,14 @@
                 color: white; /* Chữ trắng */
                 border-color: #FC6E51; /* Màu viền cam */
             }
-            
+
+            .product-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+
         </style>
     </head>
 
@@ -93,179 +100,143 @@
                 <div class="search-bar">
                     <div class="container">
                         <div class="d-flex justify-content-center">
-                            <input type="text" name="search" class="form-control search-input" placeholder="Tìm món...">
+                            <input type="text" name="search" class="form-control search-input" placeholder="Tìm sản phẩm...">
                             <button type="submit" class="btn search-btn"><i class="fa-solid fa-search"></i></button>
                         </div>
                     </div>
                 </div>
             </form>
 
-            <!-- Product Section + Cart -->
-            <div class="container my-5">
-                <!-- Menu -->
-                <div class="menu-nav">
-                    <a href="home" class="col-md">Tất cả</a>
-                <c:forEach items="${requestScope.categorys}" var="c">
-                    <a href="home?categoryid=${c.id}&index=${i}" class="col-md ${param.categoryid == c.id ? 'active' : ''}">${c.name}</a>
-                </c:forEach>
 
-            </div>
-        </div>
-
-        <div class="container-fluid main-content px-5">
-            <div class="row">
-                <!-- Phần giỏ hàng -->
-                <div class="col-md-3">
-                    <div class="cart-section">
-                        <div class="cart-title">Giỏ hàng</div>
-                        <c:if test="${not empty cartlists}">
+            <div class="container-fluid main-content px-5">
+                <div class="row">
+                    <!-- Sidebar Danh mục -->
+                    <div class="col-md-3">
+                        <div class="menu-nav">
                             <ul class="list-group">
-                                <c:forEach items="${cartlists}" var="item">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        ${item.product.name} 
-                                        <span class="minicart-quantity badge bg-primary rounded-pill">${item.quantity}</span>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                            <!-- Khai báo biến tổng giá -->
-                            <c:set var="totalPrice" value="0" />
-
-                            <!-- Duyệt qua từng item và tính tổng giá -->
-                            <c:forEach items="${cartlists}" var="item">
-                                <c:set var="itemTotal" value="${item.quantity * item.product.price}" />
-                                <c:set var="totalPrice" value="${totalPrice + itemTotal}" />
+                                <li class="list-group-item"><a href="home" class="d-block">Tất cả</a></li>
+                                <c:forEach items="${requestScope.categorys}" var="c">
+                                <li class="list-group-item">
+                                    <a href="home?categoryid=${c.categoryID}&index=1" class="d-block ${param.categoryid == c.categoryID ? 'active' : ''}">${c.categoryName}</a>
+                                </li>
                             </c:forEach>
-
-                            <!-- Hiển thị tổng giá -->
-                            <div class="cart-total mt-3">
-                                <strong>Tổng đơn:</strong> 
-                                <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true" />
-                                <span>VND</span>
-                            </div>
-
-
-
-                            <a href="cart" class="minicart-btn btn btn-secondary mt-3">Chỉnh sửa giỏ hàng</a>
-                        </c:if>
-                        <c:if test="${empty cartlists}">
-                            <p>Giỏ hàng trống.</p>
-                        </c:if>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Phần sản phẩm -->
+                <!-- Nội dung chính -->
                 <div class="col-md-9">
+                    <!-- Menu Thương Hiệu (Brands) -->
+                    <div class="d-flex flex-wrap justify-content-start mb-3">
+                        <a href="home" class="btn btn-outline-primary m-1">Tất cả</a>
+                        <c:forEach items="${requestScope.brands}" var="b">
+                            <a href="home?brandid=${b.brandID}&categoryid=${param.categoryid}" 
+                               class="btn btn-outline-secondary m-1 ${param.brandid == b.brandID ? 'active' : ''}">
+                                ${b.brandName}
+                            </a>
+                        </c:forEach>
+                    </div>
+
+                    <!-- Danh sách sản phẩm -->
                     <div class="row g-4">
                         <c:forEach items="${requestScope.products}" var="p">
-                            <c:set var="quantity" value="1" /> <!-- Số lượng mặc định -->
-                            <c:forEach items="${cartlists}" var="item">
-                                <c:if test="${item.product.id == p.id}">
-                                    <c:set var="quantity" value="${item.quantity + 1}" /> <!-- Nếu đã có trong giỏ hàng, cộng thêm 1 -->
-                                </c:if>
-                            </c:forEach>
-
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-4">
                                 <div class="card product-card">
-                                    <a href="product-detail?pro_id=${p.id}">
-                                        <img src="${p.imageUrl != null ? p.imageUrl : 'default-image.jpg'}" class="card-img-top" alt="${p.name}">
+                                    <a href="product-detail?pro_id=${p.productID}">
+                                        <img src="${p.image != null ? p.image : 'default-image.jpg'}" class="card-img-top" alt="${p.productName}">
                                     </a>
                                     <div class="card-body">
-                                        <a style="text-decoration: none" href="product-detail?pro_id=${p.id}">
-                                            <h5 class="card-title">${p.name}</h5>
+                                        <a style="text-decoration: none" href="product-detail?pro_id=${p.productID}">
+                                            <h5 class="card-title">${p.productName}</h5>
                                         </a>
-                                        <p class="card-text">${p.price}</p>
-                                        <!-- Thay đổi nút Đặt Món thành một form -->
-                                        <form action="updateCart" method="post" style="display:inline;">
-                                            <input type="hidden" name="productId" value="${p.id}">
-                                            <input type="hidden" name="quantity" value="${quantity}"> <!-- Sử dụng số lượng đã tính -->
-                                            <c:if test="${p.quantity > 0}">
-                                                <button type="submit" class="btn btn-primary">Đặt Món</button>
-                                            </c:if>
-                                            <c:if test="${p.quantity <= 0}">
-                                                <buttonlass="btn btn-primary">Hết Hàng</button>
-                                                
-                                            </c:if>
-
-                                        </form>
+                                        <p class="card-text">${p.price} VND</p>
+                                        <c:if test="${p.stock_Quantity > 0}">
+                                            <button class="btn btn-primary">Đặt Hàng</button>
+                                        </c:if>
+                                        <c:if test="${p.stock_Quantity <= 0}">
+                                            <button class="btn btn-secondary" disabled>Hết Hàng</button>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
                     </div>
-
-
-                    <div class="float-end">
-                        <jsp:include page="pagination.jsp">
-                            <jsp:param name="baseUrl" value="otherServlet" />
-                        </jsp:include>
-                    </div>
                 </div>
-
             </div>
         </div>
-        <!-- Footer -->
-        <jsp:include page="footer.jsp"></jsp:include>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./Script/Script.js"></script>
-        <script>
+        <div class="float-end">
+            <jsp:include page="pagination.jsp">
+                <jsp:param name="baseUrl" value="otherServlet" />
+            </jsp:include>
+        </div>
+    </div>
 
-            document.addEventListener('DOMContentLoaded', function () {
-                // Get all menu items
-                const menuItems = document.querySelectorAll('.menu-nav a');
+</div>
+</div>
+<!-- Footer -->
+<jsp:include page="footer.jsp"></jsp:include>
 
-                // Get the current URL
-                const currentURL = window.location.href;
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./Script/Script.js"></script>
+<script>
 
-                // Add click event listener to each menu item
-                menuItems.forEach(item => {
-                    // Check if this is the current page
-                    if (currentURL === item.href) {
-                        item.classList.add('active');
-                    }
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all menu items
+        const menuItems = document.querySelectorAll('.menu-nav a');
 
-                    // Add click event listener
-                    item.addEventListener('click', function () {
-                        // Remove active class from all items
-                        menuItems.forEach(menuItem => {
-                            menuItem.classList.remove('active');
-                        });
+        // Get the current URL
+        const currentURL = window.location.href;
 
-                        // Add active class to clicked item
-                        this.classList.add('active');
-                    });
+        // Add click event listener to each menu item
+        menuItems.forEach(item => {
+            // Check if this is the current page
+            if (currentURL === item.href) {
+                item.classList.add('active');
+            }
+
+            // Add click event listener
+            item.addEventListener('click', function () {
+                // Remove active class from all items
+                menuItems.forEach(menuItem => {
+                    menuItem.classList.remove('active');
                 });
 
-                // If no active item is found, activate "Tất cả" by default
-                if (!document.querySelector('.menu-nav a.active')) {
-                    const allProductsLink = document.querySelector('.menu-nav a[href="home"]');
-                    if (allProductsLink) {
-                        allProductsLink.classList.add('active');
-                    }
-                }
+                // Add active class to clicked item
+                this.classList.add('active');
             });
-            document.addEventListener('DOMContentLoaded', function () {
-                // Get the current URL
-                const currentURL = window.location.href;
+        });
 
-                // Get all pagination links
-                const paginationLinks = document.querySelectorAll('.pagination a');
+        // If no active item is found, activate "Tất cả" by default
+        if (!document.querySelector('.menu-nav a.active')) {
+            const allProductsLink = document.querySelector('.menu-nav a[href="home"]');
+            if (allProductsLink) {
+                allProductsLink.classList.add('active');
+            }
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the current URL
+        const currentURL = window.location.href;
 
-                // Loop through all pagination links
-                paginationLinks.forEach(link => {
-                    const parentLi = link.closest('li');
-                    const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
+        // Get all pagination links
+        const paginationLinks = document.querySelectorAll('.pagination a');
 
-                    // Check if the link's href matches the current URL and it's a page number link
-                    if (currentURL.includes(link.href) && isPageNumber) {
-                        link.classList.add('active');
-                    }
-                });
-            });
+        // Loop through all pagination links
+        paginationLinks.forEach(link => {
+            const parentLi = link.closest('li');
+            const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
+
+            // Check if the link's href matches the current URL and it's a page number link
+            if (currentURL.includes(link.href) && isPageNumber) {
+                link.classList.add('active');
+            }
+        });
+    });
 
 
 
 
-        </script>
-    </body>
+</script>
+</body>
 </html>

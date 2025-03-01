@@ -27,12 +27,33 @@
         <url-pattern>/edit-category</url-pattern>       
         <url-pattern>/delete-category</url-pattern>
     </servlet-mapping>
+   
+
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>controller.homeController.HomeController</servlet-class>
+    </servlet>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>controller.cartController.CartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/home-search</url-pattern>
+        <url-pattern>/product-detail</url-pattern>
+        <url-pattern>/add-cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            1600
+            30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>admin-welcome.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
