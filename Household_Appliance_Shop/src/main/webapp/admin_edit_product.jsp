@@ -106,6 +106,12 @@
                         <label for="name" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="name" name="name" value="${p.productName}" required>
                     </div>
+                    
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" value="${p.description}" required>
+                    </div>
 
                     <!-- Price -->
                     <div class="mb-3">

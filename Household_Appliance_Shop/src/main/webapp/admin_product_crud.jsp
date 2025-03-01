@@ -135,6 +135,7 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Category</th>
+                            <th>Brand</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -147,6 +148,7 @@
                                 <td>${p.price}</td>
                                 <td>${p.stock_Quantity}</td>
                                 <td>${p.categoryID}</td>
+                                <td>${p.brandID}</td>
                                 <td><img src="${p.image}" alt="${p.productName}" style="width: 50px; height: auto;"></td>
                                 <td>
                                     <a href="newedit?id=${p.productID}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
