@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>controller.product.ProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CategoryController</servlet-name>
+        <servlet-class>controller.product.CategoryController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/ProductController</url-pattern>
+        <url-pattern>/new</url-pattern>
+        <url-pattern>/insert</url-pattern>
+        <url-pattern>/newedit</url-pattern>
+        <url-pattern>/edit</url-pattern>
+        <url-pattern>/delete</url-pattern>
+        <url-pattern>/searchProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryController</servlet-name>
+        <url-pattern>/CategoryController</url-pattern>
+        <url-pattern>/new-category</url-pattern>
+        <url-pattern>/insert-category</url-pattern>
+        <url-pattern>/newedit-category</url-pattern>
+        <url-pattern>/edit-category</url-pattern>       
+        <url-pattern>/delete-category</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            1600
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>admin-welcome.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

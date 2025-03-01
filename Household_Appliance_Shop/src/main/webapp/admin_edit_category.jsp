@@ -81,8 +81,8 @@
 
             <div class="sidebar">
                 <h3>Admin Dashboard</h3>
-                <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
+                <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+                <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
                 <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
                 <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
                 <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
@@ -96,13 +96,13 @@
                         <!-- Category ID (readonly) -->
                         <div class="mb-3">
                             <label for="id" class="form-label">Category ID</label>
-                            <input type="text" class="form-control" id="id" name="id" value="${category.id}" readonly>
+                            <input type="text" class="form-control" id="id" name="id" value="${category.categoryID}" readonly>
                     </div>
 
                     <!-- Category Name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Category Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${category.name}" required>
+                        <input type="text" class="form-control" id="name" name="name" value="${category.categoryName}" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Category</button>

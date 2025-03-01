@@ -78,8 +78,8 @@
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <h3>Admin Dashboard</h3>
-                    <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                    <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
+                    <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+                    <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
                     <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
                     <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
                     <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
@@ -103,16 +103,16 @@
                 </form>
                 <c:set var="i" value="${currentPage}" />        
                 <!-- Form phân loại theo danh mục --> 
-                <form method="GET" action="productcontrol" class="mb-3">
+                <form method="GET" action="ProductController" class="mb-3">
                     <!-- Thêm input hidden để truyền index -->
                     <input type="hidden" name="index" value="${currentPage}"/>
 
                     <div class="row">
                         <div class="col-md-8">
-                            <select name="categoryid" class="form-select">
+                            <select name="categoryID" class="form-select">
                                 <option value="">All Categories</option>
-                                <c:forEach var="category" items="${categorys}">
-                                    <option value="${category.id}" ${param.categoryid == category.id ? 'selected' : ''}>${category.name}</option>
+                                <c:forEach var="c" items="${categories}">
+                                    <option value="${c.categoryID}" ${param.categoryID == c.categoryID ? 'selected' : ''}>${c.categoryName}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -140,23 +140,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="product" items="${requestScope.products}">
+                        <c:forEach var="p" items="${requestScope.p}">
                             <tr>
-                                <td>${product.id}</td>
-                                <td>${product.name}</td>
-                                <td>${product.price}</td>
-                                <td>${product.quantity}</td>
-                                <td>${product.categoryid}</td>
-                                <td><img src="${product.imageUrl}" alt="${product.name}" style="width: 50px; height: auto;"></td>
+                                <td>${p.productID}</td>
+                                <td>${p.productName}</td>
+                                <td>${p.price}</td>
+                                <td>${p.stock_Quantity}</td>
+                                <td>${p.categoryID}</td>
+                                <td><img src="${p.image}" alt="${p.productName}" style="width: 50px; height: auto;"></td>
                                 <td>
-                                    <a href="newedit?id=${product.id}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                    <a href="delete?id=${product.id}" class="btn btn-danger btn-sm"
+                                    <a href="newedit?id=${p.productID}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="delete?id=${p.productID}" class="btn btn-danger btn-sm"
                                        onclick="return confirm('Are you sure you want to delete this product?');"><i class="fas fa-trash"></i> Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+                <c:if test="${not empty error}">
+                    <strong>${error}</strong>
+                </c:if>
 
                 <div class="float-end">
                     <nav aria-label="Page navigation example">
@@ -187,24 +190,24 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                // Get the current URL
-                const currentURL = window.location.href;
+                                           document.addEventListener('DOMContentLoaded', function () {
+                                               // Get the current URL
+                                               const currentURL = window.location.href;
 
-                // Get all pagination links
-                const paginationLinks = document.querySelectorAll('.pagination a');
+                                               // Get all pagination links
+                                               const paginationLinks = document.querySelectorAll('.pagination a');
 
-                // Loop through all pagination links
-                paginationLinks.forEach(link => {
-                    const parentLi = link.closest('li');
-                    const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
+                                               // Loop through all pagination links
+                                               paginationLinks.forEach(link => {
+                                                   const parentLi = link.closest('li');
+                                                   const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
 
-                    // Check if the link's href matches the current URL and it's a page number link
-                    if (currentURL.includes(link.href) && isPageNumber) {
-                        link.classList.add('active');
-                    }
-                });
-            });
+                                                   // Check if the link's href matches the current URL and it's a page number link
+                                                   if (currentURL.includes(link.href) && isPageNumber) {
+                                                       link.classList.add('active');
+                                                   }
+                                               });
+                                           });
         </script>
     </body>
 

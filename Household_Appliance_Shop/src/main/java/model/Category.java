@@ -16,6 +16,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public Category(int categoryID, String categoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
@@ -35,5 +39,5 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }   
+    }
 }

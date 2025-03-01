@@ -82,8 +82,8 @@
 
             <div class="sidebar">
                 <h3>Admin Dashboard</h3>
-                <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
+                <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+                <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
                 <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
                 <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
                 <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
@@ -98,35 +98,44 @@
                         <!-- Product ID (readonly) -->
                         <div class="mb-3">
                             <label for="id" class="form-label" value="" >Product ID</label>
-                            <input type="text" class="form-control" id="id" name="id" value="${product.id}" readonly>
+                            <input type="text" class="form-control" id="id" name="id" value="${p.productID}" readonly>
                     </div>
 
                     <!-- Product Name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${product.name}" required>
+                        <input type="text" class="form-control" id="name" name="name" value="${p.productName}" required>
                     </div>
 
                     <!-- Price -->
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" step="0.01" class="form-control" id="price" name="price" value="${product.price}" required>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" value="${p.price}" required>
                     </div>
 
                     <!-- Quantity -->
                     <div class="mb-3">
                         <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" value="${product.quantity}" required>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="${p.stock_Quantity}" required>
                     </div>
 
                     <!-- Category -->
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
-                        <select class="form-select" id="category" name="categoryid" required>
+                        <select class="form-select" id="category" name="categoryID" required>
                             <option value="">Select Category</option>
-                            <c:forEach var="category" items="${requestScope.categoryList}">
+                            <c:forEach var="c" items="${requestScope.c}">
 
-                                <option value="${category.id}" ${category.id == product.categoryid ? 'selected="selected"' : ''}>${category.name}</option>
+                                <option value="${c.categoryID}" ${c.categoryID == p.categoryID ? 'selected="selected"' : ''}>${c.categoryName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Brand</label>
+                        <select class="form-select" id="brand" name="brandID" required>
+                            <option value="">Select Brand</option>
+                            <c:forEach var="b" items="${requestScope.b}">
+                                <option value="${b.brandID}" ${b.brandID == p.brandID ? 'selected="selected"' : ''}>${b.brandName}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -134,7 +143,7 @@
                     <!-- Image URL -->
                     <div class="mb-3">
                         <label for="imageUrl" class="form-label">Image URL</label>
-                        <input type="text" class="form-control" id="imageUrl" name="imageUrl" value="${product.imageUrl}">
+                        <input type="text" class="form-control" id="image" name="image" value="${p.image}">
                     </div>
 
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Product</button>

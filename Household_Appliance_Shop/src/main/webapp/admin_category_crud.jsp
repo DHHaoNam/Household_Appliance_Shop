@@ -79,8 +79,8 @@
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <h3>Admin Dashboard</h3>
-                    <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                    <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
+                    <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+                    <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
                     <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
                     <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
                     <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
@@ -103,13 +103,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="category" items="${requestScope.categoryList}">
+                        <c:forEach var="categories" items="${requestScope.categories}">
                             <tr>
-                                <td>${category.id}</td>
-                                <td>${category.name}</td>
+                                <td>${categories.categoryID}</td>
+                                <td>${categories.categoryName}</td>
                                 <td>
-                                    <a href="newedit-category?id=${category.id}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                    <a href="delete-category?id=${category.id}" class="btn btn-danger btn-sm"
+                                    <a href="newedit-category?id=${categories.categoryID}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="delete-category?id=${categories.categoryID}" class="btn btn-danger btn-sm"
                                        onclick="return confirm('Are you sure you want to delete this category?');"><i class="fas fa-trash"></i> Delete</a>
                                 </td>
                             </tr>

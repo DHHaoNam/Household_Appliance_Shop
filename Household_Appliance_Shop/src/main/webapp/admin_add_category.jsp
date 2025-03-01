@@ -79,21 +79,17 @@
     <body>
         <jsp:include page="admin_dashboard_header.jsp"></jsp:include>
         <div class="sidebar">
-                <h3>Admin Dashboard</h3>
-                <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
-                <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
-                <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
-                <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
-            </div>
+            <h3>Admin Dashboard</h3>
+            <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+            <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
+            <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
+            <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
+            <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
+        </div>
         <div class="content">
             <div class="container mt-5">
                 <h1>Add New Category</h1>
                 <form action="insert-category" method="POST">
-                    <div class="mb-3">
-                        <label for="id" class="form-label">Category ID</label>
-                        <input type="text" class="form-control" id="id" name="id" readonly>
-                    </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>
