@@ -27,15 +27,10 @@
         <url-pattern>/edit-category</url-pattern>       
         <url-pattern>/delete-category</url-pattern>
     </servlet-mapping>
-   
-
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.homeController.HomeController</servlet-class>
     </servlet>
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
     <servlet>
         <servlet-name>CartController</servlet-name>
         <servlet-class>controller.cartController.CartController</servlet-class>
@@ -51,28 +46,26 @@
         <servlet-name>CartController</servlet-name>
         <url-pattern>/CartController</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
-    </welcome-file-list>
+    
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Controller.customer.login.Login</servlet-class>
+        <servlet-class>controller.customer.login.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>Controller.customer.login.Logout</servlet-class>
+        <servlet-class>controller.customer.login.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>Controller.customer.register.Register</servlet-class>
+        <servlet-class>controller.customer.register.Register</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProfile</servlet-name>
-        <servlet-class>Controller.customer.profile.UpdateProfile</servlet-class>
+        <servlet-class>controller.customer.profile.UpdateProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
-        <servlet-class>Controller.customer.profile.ChangePassword</servlet-class>
+        <servlet-class>controller.customer.profile.ChangePassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
