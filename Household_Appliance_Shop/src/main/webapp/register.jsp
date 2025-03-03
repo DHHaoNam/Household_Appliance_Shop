@@ -82,7 +82,11 @@
 
             <div class="register-form">
                 <h2>Register</h2>               
-                <form action="register">
+                <form action="register" method="post">
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" required>
+                    </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
@@ -92,7 +96,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="text" class="form-control" id="email" name="email" required>
+                    <c:if test="${not empty sessionScope.errorEmail}">
+                        <p class="error"><c:out value="${sessionScope.errorEmail}" /></p>
+                    </c:if>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                    <c:if test="${not empty sessionScope.errorPhone}">
+                        <p class="error"><c:out value="${sessionScope.errorPhone}" /></p>
+                    </c:if>
                 </div>
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Password</label>
@@ -137,13 +151,12 @@
                     });
                 });
             </script>
+        <% session.removeAttribute("errorName"); %>
+        <% session.removeAttribute("errorEmail"); %>
+        <% session.removeAttribute("errorPhone"); %>
+        <% session.removeAttribute("errorConfirm"); %>
+        <% session.removeAttribute("errorGeneral");%>
 
-        <%
-            session.removeAttribute("errorName");
-            session.removeAttribute("errorPassword");
-            session.removeAttribute("errorConfirm");
-            session.removeAttribute("successMessage");
-        %>
     </body>
 </html>
 

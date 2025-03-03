@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Customer {
     private String phone;
     private String userName;
     private String password;
-    private Date registrationDate;
+    private LocalDate registrationDate;
     private boolean status;
 
     public Customer() {
@@ -30,7 +31,7 @@ public class Customer {
         this.phone = phone;
         this.userName = userName;
         this.password = password;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDate.now();
         this.status = status;
     }
 
@@ -50,22 +51,6 @@ public class Customer {
         this.fullName = fullName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -82,19 +67,35 @@ public class Customer {
         this.password = password;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public boolean isStatus() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
-    }   
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 }

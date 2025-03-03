@@ -1,9 +1,11 @@
-<%-- Document : account.jsp Created on : Oct 17, 2024, 1:40:00 PM Author : admin --%>
+<%-- 
+    Document   : changepassword
+    Created on : Mar 2, 2025, 10:05:25 PM
+    Author     : Nam
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-
 <%
     Cookie[] cookies = request.getCookies();
     boolean hasUserCookie = false;
@@ -20,12 +22,13 @@
         return;
     }
 %>
-
+<!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Account Information</title>
+        <title>Thay Đổi Mật Khẩu</title>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
               integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -101,8 +104,7 @@
                 color: #555;
             }
 
-            .account-info input[type="text"],
-            .account-info input[type="email"] {
+            .account-info input[type="password"] {
                 width: 100%;
                 padding: 10px;
                 border: 1px solid #ddd;
@@ -125,63 +127,60 @@
         </style>
     </head>
 
+
     <body>
+
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">${success}</div>
+            <c:remove var="success" scope="session"/>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger">${error}</div>
+        </c:if>
 
         <jsp:include page="header.jsp"></jsp:include>
 
-            <!-- Info Account Section -->
-            <div class="container my-5">
-                <h3>Tài Khoản</h3>
-                <div class="row">
-                    <!-- Sidebar -->
-                    <div class="col-md-3">
-                        <ul>
-                            <li><a href="account.jsp">Thông tin tài khoản</a></li>
-                            <li><a href="listAddress">Danh sách địa chỉ</a></li>
-                            <li><a href="listOrders">Lịch sử mua hàng</a></li>
-                            <li><a href="changepassword">Đổi mật khẩu</a></li>
-                            <li><a href="logout">Đăng xuất</a></li>
-                        </ul>
-                    </div>
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <ul>
+                    <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                    <li><a href="listAddress">Danh sách địa chỉ</a></li>
+                    <li><a href="listOrders">Lịch sử mua hàng</a></li>
+                    <li><a href="changepassword">Đổi mật khẩu</a></li>
+                    <li><a href="logout">Đăng xuất</a></li>
+                </ul>
+            </div>
 
-                    <!-- Account Information -->
-                <c:if test="${sessionScope.customer != null}">
-                    <div class="col-md-9">
-                        <div class="account-info">
-                            <h3>Thông tin tài khoản</h3>
-                            <div class="info-item">
-                                <label for="username">Tên người dùng:</label>
-                                <input type="text" id="username" value="${sessionScope.customer.userName}" readonly>
-                            </div>
-                            <div class="info-item">
-                                <label for="username">Họ và tên:</label>
-                                <input type="text" id="fullName" value="${sessionScope.customer.fullName}" readonly>
-                            </div>
-                            <!--                            <div class="info-item">
-                                                            <label for="username">Password:</label>
-                                                            <input type="text" id="password" value="${sessionScope.customer.password}" readonly>
-                                                        </div>-->
-                            <div class="info-item">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" value="${sessionScope.customer.email}" readonly>
-                            </div>
-                            <div class="info-item">
-                                <label for="phone">Số điện thoại:</label>
-                                <input type="text" id="phone_number" value="${sessionScope.customer.phone}" readonly>
-                            </div>
-                            <div class="info-item mx-auto">
-                                <a href="update-account.jsp" class="btn">Chỉnh sửa thông tin</a>
-                            </div>
-                        </c:if>
-                    </div>
-                </div>
+            <!-- Change Password Form -->
+            <div class="container my-5">
+                <h3>Thay đổi mật khẩu</h3>
+                <div class="account-info">
+                    <form action="changepassword" method="post">
+                        <div class="info-item">
+                            <label for="oldPassword">Mật khẩu cũ:</label>
+                            <input type="password" id="oldPassword" name="oldPassword" required>
+                        </div>
+                        <div class="info-item">
+                            <label for="newPassword">Mật khẩu mới:</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+                        </div>
+                        <div class="info-item">
+                            <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                        <div class="info-item">
+                            <button type="submit" class="btn">Đổi mật khẩu</button>
+                        </div>
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
+                    </c:if>
+                </form>
             </div>
         </div>
 
         <jsp:include page="footer.jsp"></jsp:include>
 
         <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
-
 </html>

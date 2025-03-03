@@ -4,7 +4,6 @@
  */
 package controller.homeController;
 
-import dao.CartDAO;
 import dao.HomeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,10 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import model.Brand;
 import model.Category;
-import model.Customer;
 import model.Product;
 
 /**
@@ -80,9 +77,6 @@ public class HomeController extends HttpServlet {
                 case "/product-detail":
                     detailProduct(request, response);
                     break;
-                case "/add-cart":
-                    addToCart(request, response);
-                    break;
                 default:
                     getData(request, response);
                     break;
@@ -137,42 +131,6 @@ public class HomeController extends HttpServlet {
         request.setAttribute("categorys", categorys);
         request.setAttribute("brands", brands); // Set brands as request attribute
         request.getRequestDispatcher("home.jsp").forward(request, response);
-    }
-
-    protected void addToCart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Customer acc = (Customer) session.getAttribute("acc");
-
-        // Kiểm tra đăng nhập
-//        if (acc == null) {
-//            response.sendRedirect("login.jsp"); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
-//            return;
-//        }
-
-        String pro_idStr = request.getParameter("productID");
-        String quantityStr = request.getParameter("quantity");
-
-        try {
-            int productID = Integer.parseInt(pro_idStr);
-            int quantity = Integer.parseInt(quantityStr);
-            CartDAO cartDAO = new CartDAO();
-
-            if (cartDAO.isProductInCart(acc.getCustomerID(), productID)) {
-                // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng thêm số lượng mới
-                cartDAO.updateCartItemQuantity(acc.getCustomerID(), productID, quantity);
-            } else {
-                // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
-                cartDAO.addCartItem(acc.getCustomerID(), productID, quantity);
-            }
-
-            // Chuyển hướng về trang cart để xem giỏ hàng
-            response.sendRedirect("cart");
-
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing numbers: " + e.getMessage());
-            response.sendRedirect("cart");
-        }
     }
     
     protected void getProductByName(HttpServletRequest request, HttpServletResponse response)

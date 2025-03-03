@@ -2,6 +2,22 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    Cookie[] cookies = request.getCookies();
+    boolean hasUserCookie = false;
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())) {
+                hasUserCookie = true;
+                break;
+            }
+        }
+    }
+    if (!hasUserCookie) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,38 +131,59 @@
             <!-- Info Account Section -->
             <div class="container my-5">
                 <h3>Tài Khoản</h3>
-                <div class="row">
-                    <!-- Sidebar -->
-                    <div class="col-md-3">
-                        <ul>
-                            <li><a href="account.jsp">Thông tin tài khoản</a></li>
-                            <li><a href="listAddress">Danh sách địa chỉ</a></li>
-                            <li><a href="listOrders">Lịch sử mua hàng</a></li>
-                            <li><a href="logout">Đăng xuất</a></li>
-                        </ul>
-                    </div>
+            <%-- Hiển thị thông báo thành công --%>
+            <c:if test="${not empty requestScope.message}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    ${requestScope.message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
-                    <!-- Account Information -->
-                <c:if test="${sessionScope.acc != null}">
+            <%-- Hiển thị thông báo lỗi --%>
+            <c:if test="${not empty requestScope.error}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${requestScope.error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3">
+                    <ul>
+                        <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                        <li><a href="listAddress">Danh sách địa chỉ</a></li>
+                        <li><a href="listOrders">Lịch sử mua hàng</a></li>
+                        <li><a href="logout">Đăng xuất</a></li>
+                    </ul>
+                </div>
+
+                <!-- Account Information -->
+                <c:if test="${not empty errorMessage}">
+                    <div class="alert alert-danger">${errorMessage}</div>
+                </c:if>
+                <c:if test="${not empty successMessage}">
+                    <div class="alert alert-success">${successMessage}</div>
+                </c:if>
+
+                <c:if test="${sessionScope.customer != null}">
                     <div class="col-md-9">
                         <div class="account-info">
                             <h3>Cập nhật thông tin tài khoản</h3>
-                            <form action="updateaccount" method="post">
+                            <form action="update-profile" method="post">
+
                                 <div class="info-item">
-                                    <label for="username">Tên người dùng:</label>
-                                    <input type="text" name="username" id="username" value="${sessionScope.acc.username}" readonly="">
+                                    <label for="username">Họ và tên:</label>
+                                    <input type="text" name="fullName" id="fullName" value="${sessionScope.customer.fullName}">
                                 </div>
-                                <div class="info-item">
-                                    <label for="password">Password:</label>
-                                    <input type="text" name="password" id="password" value="${sessionScope.acc.password}">
-                                </div>
+
                                 <div class="info-item">
                                     <label for="email">Email:</label>
-                                    <input type="email" name="email" id="email" value="${sessionScope.acc.email}">
+                                    <input type="email" name="email" id="email" value="${sessionScope.customer.email}">
                                 </div>
                                 <div class="info-item">
                                     <label for="phone">Số điện thoại:</label>
-                                    <input type="text" name="phone_number" id="phone_number" value="${sessionScope.acc.phone_number}">
+                                    <input type="text" name="phone" id="phone_number" value="${sessionScope.customer.phone}">
                                 </div>
                                 <div class="info-item mx-auto">
                                     <button type="submit" class="btn">Cập nhật</button>

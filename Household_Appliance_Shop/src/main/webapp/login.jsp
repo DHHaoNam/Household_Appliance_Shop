@@ -78,10 +78,10 @@
 
             <div class="login-form">
                 <h2>Login</h2>
-                <form action="login" method="get">
+                <form action="login" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input type="text" class="form-control" id="username" name="userName" required>
                     </div>
                     <div class="mb-3 position-relative">
                         <label for="password" class="form-label">Password</label>
@@ -91,7 +91,7 @@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary">Login</button>
-                        <p class ="error"> ${messerror}</p>
+                        <p class="error">${errorMessage}</p>
                 </div>
                 <div class="form-text">
                     Don't have an account? <a href="register.jsp">Register Here</a>

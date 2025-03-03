@@ -32,7 +32,7 @@
                     <a class="nav-link" href="#">Liên Hệ</a>
                 </li>
                 <!-- Sửa điều kiện kiểm tra isAdmin -->
-                <c:if test="${sessionScope.acc != null && sessionScope.acc.isAdmin() == true}">
+                <c:if test="${sessionScope.customer != null && sessionScope.accustomer.isAdmin() == true}">
                     <li class="nav-item">
                         <a class="nav-link admin-btn" href="admin-account-crud">Admin Dashboard</a>
                     </li>
@@ -47,14 +47,14 @@
                         </c:if></i>  
                     </a>
                     <div id="userMenu" class="user-menu">
-                        <c:if test="${sessionScope.acc == null}">
+                        <c:if test="${sessionScope.customer == null}">
                             <ul class="list-unstyled">
                                 <li><a href="login.jsp">Đăng nhập</a></li>
                                 <li><a href="register.jsp">Đăng ký</a></li>
                             </ul>
                         </c:if>
-                        <c:if test="${sessionScope.acc != null}">
-                            <p>Xin chào, ${acc.username}!</p>
+                        <c:if test="${sessionScope.customer != null}">
+                            <p>Xin chào, ${sessionScope.customer.userName}!</p>
                             <ul class="list-unstyled">
                                 <li><a href="account.jsp"><i class="fas fa-user-circle me-2"></i>Tài khoản của tôi</a></li>
                                 <li><a href="listAddress"><i class="fas fa-map-marker-alt me-2"></i>Danh sách địa chỉ</a></li>
