@@ -159,7 +159,7 @@ public class OrderController extends HttpServlet {
         request.setAttribute("listOrders", orders);
         request.getRequestDispatcher("admin_orders.jsp").forward(request, response);
     }
-
+ 
     // Xóa order
     private void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int orderID = Integer.parseInt(request.getParameter("id"));
