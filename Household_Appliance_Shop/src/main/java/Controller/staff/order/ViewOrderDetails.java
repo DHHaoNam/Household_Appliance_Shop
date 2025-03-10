@@ -58,19 +58,9 @@ public class ViewOrderDetails extends HttpServlet {
     throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("id"));
         
-        // Sử dụng staffOrderDAO để lấy thông tin đơn hàng
         staffOrderDAO orderDAO = new staffOrderDAO();
-        OrderInfo order = orderDAO.selectOrder(orderId); // Lấy thông tin đơn hàng
-        
-        // Nếu bạn có thêm dữ liệu chi tiết như danh sách sản phẩm trong đơn hàng,
-        // thì cần gọi thêm các phương thức khác để lấy thông tin đó
-        
-        // Đặt thông tin đơn hàng vào request attribute
+        OrderInfo order = orderDAO.selectOrder(orderId); 
         request.setAttribute("OrderInfo", order);
-        // Nếu có danh sách chi tiết đơn hàng
-        // request.setAttribute("listOrderItems", listOrderItems);
-        
-        // Forward request tới trang admin_view_orders.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin_view_orders.jsp");
         dispatcher.forward(request, response);
     } 
